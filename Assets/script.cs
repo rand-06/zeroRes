@@ -97,7 +97,7 @@ public class script : MonoBehaviour
     {
         if (num > 999)
         {
-            return (num / 1000 == num % 1000) && (num / 10 % 10 == num % 100 / 10);
+            return (num / 1000 == num % 10) && (num / 10 % 10 == num % 1000 / 100);
         }
         else if (num > 99)
         {
@@ -140,6 +140,7 @@ public class script : MonoBehaviour
     void strikeSleep()
     {
         Module.HandleStrike();
+        FakeStatusLight.FlashStrike();
         sleepingMode = false;
         penalty = 100;
         globalTimer = 900;
@@ -238,6 +239,7 @@ public class script : MonoBehaviour
             else if (READY ^ status)
             {
                 Module.HandleStrike();
+                FakeStatusLight.FlashStrike();
                 globalTimer += penalty;
                 return;
             }
@@ -252,6 +254,7 @@ public class script : MonoBehaviour
             else
             {
                 Module.HandleStrike();
+                FakeStatusLight.FlashStrike();
                 globalTimer += penalty;
                 stage++;
                 moduleNumber *= 2;
@@ -273,10 +276,5 @@ public class script : MonoBehaviour
         FakeStatusLight = Instantiate(FakeStatusLight);
         FakeStatusLight.GetStatusLights(transform);
         FakeStatusLight.Module = Module;
-
-        //
-        // Module.AddInteractionPunch(float)
-        //
-
     }
 }
